@@ -10,7 +10,7 @@ interface ValidatorInterface
     /**
      * @return bool
      */
-    public function validate(array $params);
+    public function validateParams(array $params);
 
     /*
      * @return string

@@ -41,7 +41,7 @@ class ServiceExecutor
      */
     public function execute(array $params)
     {
-        if ($this->validator->validate($params)) {
+        if ($this->validator->validateParams($params)) {
             $this->params = $params;
 
             $this->executeBeforeEvent($params);

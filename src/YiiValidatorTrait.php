@@ -10,14 +10,14 @@ trait YiiValidatorTrait
     /**
      * @param array $params
      */
-    public function validate(array $params)
+    public function validateParams(array $params)
     {
         /** @var mixed $param */
         foreach ($params as $key => $param) {
             $this->$key = $param;
         }
 
-        parent:validate($params);
+        return $this->validate();
     }
 
     /**
