@@ -25,10 +25,10 @@ class ServiceExecutor
     private $afterEvent;
 
     /**
-     * BaseService constructor.
+     * @param ServiceInterface $service
      * @param ValidatorInterface $validator
      */
-    public function __construct(ValidatorInterface $validator, ServiceInterface $service) {
+    public function __construct(ServiceInterface $service, ValidatorInterface $validator) {
         $this->validator = $validator;
         $this->service = $service;
     }
@@ -44,14 +44,34 @@ class ServiceExecutor
         if ($this->validator->validate($params)) {
             $this->params = $params;
 
-            $this->beforeEvent->execute($params);
+            $this->executeBeforeEvent($params);
             $result = $this->service->execute($params);
-            $this->afterEvent->execute($params);
+            $this->executeAfterEvent($params);
 
             return $result;
         } else {
             $errorMessage = $this->validator->getErrorMessage();
             throw new Exception(sprintf('Invalid parameters: %s', $errorMessage));
+        }
+    }
+
+    /**
+     * @param array $params
+     */
+    private function executeBeforeEvent(array $params)
+    {
+        if ($this->beforeEvent !== null) {
+            $this->beforeEvent->execute($params);
+        }
+    }
+
+    /**
+     * @param array $params
+     */
+    private function executeAfterEvent(array $params)
+    {
+        if ($this->afterEvent !== null) {
+            $this->afterEvent->execute($params);
         }
     }
 
