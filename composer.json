@@ -8,5 +8,6 @@
     "psr-4": {
       "ServiceExecutor\\": "src/"
     }
-  }
+  },
+  "minimum-stability": "master",
 }
