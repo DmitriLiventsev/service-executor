@@ -1,0 +1,12 @@
+
+{
+  "name" : "dmitri-liventsev/service-executor",
+  "type": "library",
+  "require": {
+  },
+  "autoload": {
+    "psr-4": {
+      "ServiceExecutor\\": "src/"
+    }
+  }
+}
