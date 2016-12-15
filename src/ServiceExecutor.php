@@ -41,18 +41,38 @@ class ServiceExecutor
      */
     public function execute(array $params)
     {
-        if ($this->validator->validateParams($params)) {
-            $this->params = $params;
+        $this->setParams($params);
 
-            $this->executeBeforeEvent($params);
-            $result = $this->service->execute($params);
-            $this->executeAfterEvent($params);
+        $this->executeBeforeEvent($params);
+        $result = $this->service->execute($params);
+        $this->executeAfterEvent($params);
 
-            return $result;
-        } else {
+        return $result;
+    }
+
+    /**
+     * @param array $params
+     * @throws Exception
+     */
+    public function setParams(array $params)
+    {
+        $this->params = $this->validate($params);
+    }
+
+    /**
+     * @param array $params
+     * @return array
+     * @throws Exception
+     */
+    private function validate(array $params)
+    {
+        if (!$this->validator->validateParams($params)) {
             $errorMessage = $this->validator->getErrorMessage();
+
             throw new Exception(sprintf('Invalid parameters: %s', $errorMessage));
         }
+
+        return $params;
     }
 
     /**

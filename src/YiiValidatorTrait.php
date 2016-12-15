@@ -5,6 +5,10 @@
 
 namespace ServiceExecutor;
 
+/**
+ * @method validate()
+ * @method getErrors()
+ */
 trait YiiValidatorTrait
 {
     /**
@@ -13,9 +17,7 @@ trait YiiValidatorTrait
     public function validateParams(array $params)
     {
         /** @var mixed $param */
-        foreach ($params as $key => $param) {
-            $this->$key = $param;
-        }
+        Yii::configure($this, $params);
 
         return $this->validate();
     }
