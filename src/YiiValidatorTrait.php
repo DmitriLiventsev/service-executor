@@ -17,7 +17,9 @@ trait YiiValidatorTrait
     public function validateParams(array $params)
     {
         /** @var mixed $param */
-        Yii::configure($this, $params);
+        foreach ($params as $key => $param) {
+            $this->$key = $param;
+        }
 
         return $this->validate();
     }
