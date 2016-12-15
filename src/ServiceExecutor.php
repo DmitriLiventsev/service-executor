@@ -43,9 +43,9 @@ class ServiceExecutor
     {
         $this->setParams($params);
 
-        $this->executeBeforeEvent($params);
-        $result = $this->service->execute($params);
-        $this->executeAfterEvent($params);
+        $this->executeBeforeEvent();
+        $result = $this->service->execute($this->params);
+        $this->executeAfterEvent();
 
         return $result;
     }
@@ -75,23 +75,17 @@ class ServiceExecutor
         return $params;
     }
 
-    /**
-     * @param array $params
-     */
-    private function executeBeforeEvent(array $params)
+    private function executeBeforeEvent()
     {
         if ($this->beforeEvent !== null) {
-            $this->beforeEvent->execute($params);
+            $this->beforeEvent->execute($this->params);
         }
     }
 
-    /**
-     * @param array $params
-     */
-    private function executeAfterEvent(array $params)
+    private function executeAfterEvent()
     {
         if ($this->afterEvent !== null) {
-            $this->afterEvent->execute($params);
+            $this->afterEvent->execute($this->params);
         }
     }
 
