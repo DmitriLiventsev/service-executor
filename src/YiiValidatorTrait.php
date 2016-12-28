@@ -42,7 +42,7 @@ trait YiiValidatorTrait
                 $paramErrors[] = sprintf('"%s" => [ %s ]', $paramKey, implode(" . ", $errorsStack));
             }
 
-            $errorMessage = implode(" | " , $paramErrors);
+            $errorMessage = implode(" | ", $paramErrors);
         }
 
         return $errorMessage;
